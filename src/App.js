@@ -2,51 +2,22 @@ import React, { useState } from "react";
 import "./AppSass.scss";
 import { FaUser } from "react-icons/fa";
 import { MdDriveFileRenameOutline } from "react-icons/md";
+import ErrorEtiquetas from "./Componentes/ErrorEtiquetas";
 
 function App() {
   const [nombre, setNombre] = useState("");
   const [apelPate, setApelPate] = useState("");
-  const [numberError, setNumberError] = useState(0);
+  let activar = 0;
 
   const cambiarNomrbe = (e) => {
     const value = e.target.value;
-    const minValue = value.length > 3;
-    const maxValue = value.length < 10;
-    const onliLet = /^[a-zA-Z\s]*$/g.test(value);
-
-    if (!onliLet) {
-      setNumberError(1);
-    } else if (!minValue) {
-      setNumberError(2);
-    } else if (!maxValue) {
-      setNumberError(3);
-    }
-
-    if (onliLet === true && minValue && maxValue) {
-      setNumberError(0);
-    }
-
     setNombre(value);
+    activar = 1;
+    console.log(activar);
   };
 
   const cambiarApelPate = (e) => {
     const value = e.target.value;
-    const minValue = value.length > 3;
-    const maxValue = value.length < 10;
-    const onliLet = /^[a-zA-Z\s]*$/g.test(value);
-
-    if (!onliLet) {
-      setNumberError(1);
-    } else if (!minValue) {
-      setNumberError(2);
-    } else if (!maxValue) {
-      setNumberError(3);
-    }
-
-    if (onliLet === true && minValue && maxValue) {
-      setNumberError(0);
-    }
-
     setApelPate(value);
   };
 
@@ -76,7 +47,9 @@ function App() {
                 type="nombre"
                 value={nombre}
                 onChange={cambiarNomrbe}
+                placeholder="Ingrese el nombre"
               ></input>
+              <ErrorEtiquetas nombre={nombre} activar={activar} />
             </div>
           </div>
           <label className="mi_formulario_label">Apellido Paterno:</label>
@@ -88,30 +61,22 @@ function App() {
               type="apelPate"
               value={apelPate}
               onChange={cambiarApelPate}
+              placeholder="Ingrese el Apellido Paterno"
             ></input>
-            {numberError === 1 && (
-              <label className="mi_formulario_error">
-                No se aceptan caracteres numericos
-              </label>
-            )}
-            {numberError === 2 && (
-              <label className="mi_formulario_error">
-                El nombre de ser de al menos tres caracteres
-              </label>
-            )}
-            {numberError === 3 && (
-              <label className="mi_formulario_error">
-                El nombre no puede contener mas de 15 caracteres
-              </label>
-            )}
+            <ErrorEtiquetas nombre={apelPate} />
           </div>
-          <button
-            disabled={numberError > 0}
-            className="mi_formulario_button"
-            onClick={guardarClick}
-          >
-            Guardar
-          </button>
+          <div className="mi_formulario_espacio1">
+            <button
+              disabled={(apelPate.length <= 0 || nombre.length <= 0) && true}
+              className="mi_formulario_button"
+              onClick={guardarClick}
+            >
+              Guardar
+            </button>
+            <button className="mi_formulario_button" onClick={guardarClick}>
+              Cancelar
+            </button>
+          </div>
         </div>
       </div>
       <div className="mi_formulario_footer">

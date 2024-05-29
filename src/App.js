@@ -8,7 +8,8 @@ function App() {
   const [apelPate, setApelPate] = useState("");
   const [apelMate, setApelMate] = useState("");
   const [correo, setCorreo] = useState("");
-  const [error, setError] = useState('');
+  const [numero, setNumero] = useState("");
+  const [error, setError] = useState("");
   let activar = 0;
 
   const cambiarNomrbe = (e) => {
@@ -34,9 +35,21 @@ function App() {
 
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (correo && !emailPattern.test(correo)) {
-      setError('Correo electrónico no válido');
+      setError("Correo electrónico no válido");
     } else {
-      setError('');
+      setError("");
+    }
+  };
+
+  const cambiarNumero = (e) => {
+    const value = e.target.value;
+    setNumero(value);
+
+    const numeroPattern = /^\d*$/;
+    if (numero && !numeroPattern.test(numero)) {
+      setError("Numero de telefono no valido");
+    } else {
+      setError("");
     }
   };
 
@@ -132,7 +145,6 @@ function App() {
                         autoComplete="off"
                         maxLength={25}
                       ></input>
-                      {error && <label className="mi_formulario_error">{error}</label>}
                     </div>
                   </div>
                 </th>
@@ -149,8 +161,8 @@ function App() {
                       type="text"
                       inputMode="numeric"
                       pattern="[0-9]*"
-                      value={apelPate}
-                      onChange={cambiarApelPate}
+                      value={numero}
+                      onChange={cambiarNumero}
                       placeholder="Ingrese el número de telefono"
                       autoComplete="off"
                       maxLength={10}
@@ -240,6 +252,7 @@ function App() {
                 </th>
               </tr>
             </table>
+            {error && <label className="mi_formulario_error2">{error}</label>}
           </div>
         </div>
         <div className="mi_formulario_espacio1">
@@ -247,7 +260,10 @@ function App() {
             disabled={
               (apelPate.length <= 0 ||
                 apelMate.length <= 0 ||
-                nombre.length <= 0) &&
+                nombre.length <= 0 ||
+                correo.length <= 0 ||
+                numero.length !== 10 ||
+                error.length > 0) &&
               true
             }
             className="mi_formulario_button"

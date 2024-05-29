@@ -35,6 +35,15 @@ body {
     position: absolute;
   }
 
+  &_error2 {
+    color: red;
+    font-size: 20px;
+    margin-right: 200px;
+    text-align: left;
+    position: relative;
+    margin-left: 40%;
+  }
+
   &_body {
     bottom: 100%;
   }

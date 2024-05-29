@@ -7,6 +7,7 @@ import ErrorEtiquetas from "./Componentes/ErrorEtiquetas";
 function App() {
   const [nombre, setNombre] = useState("");
   const [apelPate, setApelPate] = useState("");
+  const [apelMate, setApelMate] = useState("");
   let activar = 0;
 
   const cambiarNomrbe = (e) => {
@@ -17,6 +18,11 @@ function App() {
   };
 
   const cambiarApelPate = (e) => {
+    const value = e.target.value;
+    setApelPate(value);
+  };
+
+  const cambiarApelMate = (e) => {
     const value = e.target.value;
     setApelPate(value);
   };
@@ -37,46 +43,78 @@ function App() {
       </div>
       <div className="mi_formulario_body">
         <div className="mi_formulario_form">
-          <div className="mi_formulario_input-icon">
-            <label className="mi_formulario_label">Nombre:</label>
-            <MdDriveFileRenameOutline className="mi_formulario_icon" />
-            <div>
-              <input
-                className="mi_formulario_input"
-                id="nombre"
-                type="nombre"
-                value={nombre}
-                onChange={cambiarNomrbe}
-                placeholder="Ingrese el nombre"
-              ></input>
-              <ErrorEtiquetas nombre={nombre} activar={activar} />
-            </div>
+          <div className="mi_formulario_tabla">
+            <table className="mi_formulario_tabla_contenedor">
+              <tr className="mi_formulario_tabla_row">
+                <th className="mi_formulario_tabla_hurdle">
+                  <div className="mi_formulario_input-icon">
+                    <label className="mi_formulario_label">Nombre:</label>
+                    <MdDriveFileRenameOutline className="mi_formulario_icon" />
+                    <div>
+                      <input
+                        className="mi_formulario_input"
+                        id="nombre"
+                        type="nombre"
+                        value={nombre}
+                        onChange={cambiarNomrbe}
+                        placeholder="Ingrese el nombre"
+                      ></input>
+                      <ErrorEtiquetas nombre={nombre} activar={activar} />
+                    </div>
+                  </div>
+                </th>
+
+                <th className="mi_formulario_tabla_hurdle">
+                  <div className="mi_formulario_input-icon">
+                    <label className="mi_formulario_label">
+                      Apellido Paterno:
+                    </label>
+                    <MdDriveFileRenameOutline className="mi_formulario_icon" />
+                    <input
+                      className="mi_formulario_input"
+                      id="apelPate"
+                      type="apelPate"
+                      value={apelPate}
+                      onChange={cambiarApelPate}
+                      placeholder="Ingrese el Apellido Paterno"
+                    ></input>
+                    <ErrorEtiquetas nombre={apelPate} />
+                  </div>
+                </th>
+
+                <th className="mi_formulario_tabla_hurdle">
+                  <div className="mi_formulario_input-icon">
+                    <label className="mi_formulario_label">
+                      Apellido Paterno:
+                    </label>
+                    <MdDriveFileRenameOutline className="mi_formulario_icon" />
+                    <input
+                      className="mi_formulario_input"
+                      id="apelPate"
+                      type="apelPate"
+                      value={apelPate}
+                      onChange={cambiarApelPate}
+                      placeholder="Ingrese el Apellido Materno"
+                    ></input>
+                    <ErrorEtiquetas nombre={apelPate} />
+                  </div>
+                </th>
+              </tr>
+              <tr></tr>
+            </table>
           </div>
-          <label className="mi_formulario_label">Apellido Paterno:</label>
-          <div className="mi_formulario_input-icon">
-            <MdDriveFileRenameOutline className="mi_formulario_icon" />
-            <input
-              className="mi_formulario_input"
-              id="apelPate"
-              type="apelPate"
-              value={apelPate}
-              onChange={cambiarApelPate}
-              placeholder="Ingrese el Apellido Paterno"
-            ></input>
-            <ErrorEtiquetas nombre={apelPate} />
-          </div>
-          <div className="mi_formulario_espacio1">
-            <button
-              disabled={(apelPate.length <= 0 || nombre.length <= 0) && true}
-              className="mi_formulario_button"
-              onClick={guardarClick}
-            >
-              Guardar
-            </button>
-            <button className="mi_formulario_button" onClick={guardarClick}>
-              Cancelar
-            </button>
-          </div>
+        </div>
+        <div className="mi_formulario_espacio1">
+          <button
+            disabled={(apelPate.length <= 0 || nombre.length <= 0) && true}
+            className="mi_formulario_button"
+            onClick={guardarClick}
+          >
+            Guardar
+          </button>
+          <button className="mi_formulario_button" onClick={guardarClick}>
+            Cancelar
+          </button>
         </div>
       </div>
       <div className="mi_formulario_footer">

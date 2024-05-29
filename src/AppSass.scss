@@ -58,7 +58,7 @@ body {
   }
 
   &_form {
-    padding-left: 45%;
+    padding-left: 5%;
     text-align: left;
     padding-top: 2%;
   }
@@ -74,7 +74,8 @@ body {
     width: 100%;
     margin-bottom: 10px;
     margin-top: 5px;
-    max-width: 250px;
+    max-width: 100%;
+    
   }
 
   &_icon {
@@ -87,11 +88,19 @@ body {
   }
 
   &_input {
-    width: 100%;
+    width: 200px;
     padding: 5px;
-    text-align: center;
+    text-align: left;
+    margin-right: 15px;
+    padding-right: 55%;
+    padding-left: 15%;
     color: black;
     font-size: 18px;
+    &::placeholder{
+      text-align: center;
+      padding-left: 25px;
+      padding-right: 150%;
+    }
   }
 
   &_espacio1 {
@@ -130,6 +139,12 @@ body {
     position: relative;
     top: 30%;
   }
+
+  &_tabla_hurdle{
+    padding-right: 150px;
+    max-width: 100%;
+  }
+
 }
 
 span.mi_formulario_label {

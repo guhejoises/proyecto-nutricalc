@@ -9,8 +9,28 @@ function App() {
   const [apelMate, setApelMate] = useState("");
   const [correo, setCorreo] = useState("");
   const [numero, setNumero] = useState("");
+  const [gender, setGender] = useState("");
+  const [weight, setWeight] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("");
   const [error, setError] = useState("");
+
   let activar = 0;
+  const today = new Date();
+  const maxDate = new Date(
+    today.getFullYear() - 100,
+    today.getMonth(),
+    today.getDate()
+  )
+    .toISOString()
+    .split("T")[0];
+  const minDate = new Date(
+    today.getFullYear() - 18,
+    today.getMonth(),
+    today.getDate()
+  )
+    .toISOString()
+    .split("T")[0];
+  const startDate = minDate;
 
   const cambiarNomrbe = (e) => {
     const value = e.target.value;
@@ -44,12 +64,22 @@ function App() {
   const cambiarNumero = (e) => {
     const value = e.target.value;
     setNumero(value);
+  };
 
-    const numeroPattern = /^\d*$/;
-    if (numero && !numeroPattern.test(numero)) {
-      setError("Numero de telefono no valido");
-    } else {
-      setError("");
+  const cambiarGenero = (e) => {
+    setGender(e.target.value);
+  };
+
+  const cambiarFecha = (event) => {
+    setDateOfBirth(event.target.value);
+  };
+
+  const cambiarWeight = (event) => {
+    const value = event.target.value;
+    const validWeight = /^\d{0,3}(\.\d{0,2})?$/.test(value);
+
+    if (validWeight) {
+      setWeight(value);
     }
   };
 
@@ -92,7 +122,6 @@ function App() {
                     <label className="mi_formulario_label">
                       Apellido Paterno:
                     </label>
-                    <MdDriveFileRenameOutline className="mi_formulario_icon" />
                     <input
                       className="mi_formulario_input"
                       id="apelPate"
@@ -112,7 +141,6 @@ function App() {
                     <label className="mi_formulario_label">
                       Apellido Materno:
                     </label>
-                    <MdDriveFileRenameOutline className="mi_formulario_icon" />
                     <input
                       className="mi_formulario_input"
                       id="apelMate"
@@ -133,7 +161,6 @@ function App() {
                     <label className="mi_formulario_label">
                       Correo Electronico:
                     </label>
-                    <MdDriveFileRenameOutline className="mi_formulario_icon" />
                     <div>
                       <input
                         className="mi_formulario_input"
@@ -145,20 +172,21 @@ function App() {
                         autoComplete="off"
                         maxLength={25}
                       ></input>
+                      {error && (
+                        <label className="mi_formulario_error2">{error}</label>
+                      )}
                     </div>
                   </div>
                 </th>
-
                 <th className="mi_formulario_tabla_hurdle">
                   <div className="mi_formulario_input-icon">
                     <label className="mi_formulario_label">
                       Número de telefono:
                     </label>
-                    <MdDriveFileRenameOutline className="mi_formulario_icon" />
                     <input
                       className="mi_formulario_input"
                       id="numero_telefono"
-                      type="text"
+                      type="number"
                       inputMode="numeric"
                       pattern="[0-9]*"
                       value={numero}
@@ -167,92 +195,89 @@ function App() {
                       autoComplete="off"
                       maxLength={10}
                     ></input>
+                    {numero.length > 10 && (
+                      <label className="mi_formulario_error">
+                        Error numero de telefono no valido
+                      </label>
+                    )}
                   </div>
                 </th>
 
                 <th className="mi_formulario_tabla_hurdle">
                   <div className="mi_formulario_input-icon">
-                    <label className="mi_formulario_label">
-                      Apellido Materno:
+                    <label htmlFor="gender" className="mi_formulario_label">
+                      Sexo:
                     </label>
-                    <MdDriveFileRenameOutline className="mi_formulario_icon" />
-                    <input
-                      className="mi_formulario_input"
-                      id="apelMate"
-                      type="apelMate"
-                      value={apelMate}
-                      onChange={cambiarApelMate}
-                      placeholder="Ingrese el Apellido Materno"
-                      autoComplete="off"
-                      maxLength={19}
-                    ></input>
-                    <ErrorEtiquetas nombre={apelMate} />
+                    <select
+                      id="genero"
+                      value={gender}
+                      onChange={cambiarGenero}
+                      className="mi_formulario_dropdown"
+                    >
+                      <option value="" disabled>
+                        Seleccione su género
+                      </option>
+                      <option value="hombre">Hombre</option>
+                      <option value="mujer">Mujer</option>
+                      <option value="indefinido">No binario</option>
+                    </select>
                   </div>
                 </th>
               </tr>
               <tr>
                 <th className="mi_formulario_tabla_hurdle">
-                  <div className="mi_formulario_input-icon">
-                    <label className="mi_formulario_label">Nombre:</label>
-                    <MdDriveFileRenameOutline className="mi_formulario_icon" />
-                    <div>
-                      <input
-                        className="mi_formulario_input"
-                        id="nombre"
-                        type="nombre"
-                        value={nombre}
-                        onChange={cambiarNomrbe}
-                        placeholder="Ingrese el nombre"
-                        autoComplete="off"
-                        maxLength={19}
-                      ></input>
-                      <ErrorEtiquetas nombre={nombre} activar={activar} />
-                    </div>
+                  <div>
+                    <label
+                      htmlFor="dateOfBirth"
+                      className="mi_formulario_label"
+                    >
+                      Fecha de Nacimiento:
+                    </label>
+                    <input
+                      type="date"
+                      id="dateOfBirth"
+                      value={dateOfBirth || startDate} // Establecer la fecha de inicio
+                      onChange={cambiarFecha}
+                      min={maxDate} // Establecer la fecha mínima
+                      max={minDate} // Establecer la fecha máxima
+                      className="mi_formulario_input"
+                    />
                   </div>
                 </th>
 
                 <th className="mi_formulario_tabla_hurdle">
-                  <div className="mi_formulario_input-icon">
-                    <label className="mi_formulario_label">
-                      Apellido Paterno:
-                    </label>
-                    <MdDriveFileRenameOutline className="mi_formulario_icon" />
+                  <div>
+                    <label htmlFor="weight" className="mi_formulario_label">Peso (kg):</label>
                     <input
+                      type="text"
+                      id="weight"
+                      value={weight}
+                      onChange={cambiarWeight}
+                      placeholder="00.00"
+                      pattern="\d{0,3}(\.\d{0,2})?"
+                      inputMode="decimal"
                       className="mi_formulario_input"
-                      id="apelPate"
-                      type="apelPate"
-                      value={apelPate}
-                      onChange={cambiarApelPate}
-                      placeholder="Ingrese el Apellido Paterno"
-                      autoComplete="off"
-                      maxLength={19}
-                    ></input>
-                    <ErrorEtiquetas nombre={apelPate} />
+                    />
                   </div>
                 </th>
 
                 <th className="mi_formulario_tabla_hurdle">
-                  <div className="mi_formulario_input-icon">
-                    <label className="mi_formulario_label">
-                      Apellido Materno:
-                    </label>
-                    <MdDriveFileRenameOutline className="mi_formulario_icon" />
+                <div>
+                    <label htmlFor="weight" className="mi_formulario_label">Peso (kg):</label>
                     <input
+                      type="text"
+                      id="weight"
+                      value={weight}
+                      onChange={cambiarWeight}
+                      placeholder="00.00"
+                      pattern="\d{0,3}(\.\d{0,2})?"
+                      inputMode="decimal"
                       className="mi_formulario_input"
-                      id="apelMate"
-                      type="apelMate"
-                      value={apelMate}
-                      onChange={cambiarApelMate}
-                      placeholder="Ingrese el Apellido Materno"
-                      autoComplete="off"
-                      maxLength={19}
-                    ></input>
-                    <ErrorEtiquetas nombre={apelMate} />
+                    />
                   </div>
                 </th>
               </tr>
             </table>
-            {error && <label className="mi_formulario_error2">{error}</label>}
           </div>
         </div>
         <div className="mi_formulario_espacio1">

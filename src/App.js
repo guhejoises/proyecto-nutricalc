@@ -12,6 +12,7 @@ function App() {
   const [gender, setGender] = useState("");
   const [weight, setWeight] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
+  const [height, setHeight] = useState("");
   const [error, setError] = useState("");
 
   let activar = 0;
@@ -83,6 +84,15 @@ function App() {
     }
   };
 
+  const cambiarHeight = (event) => {
+    const value = event.target.value;
+    const validHeight = /^\d{0,3}(\.\d{0,2})?$/.test(value);
+
+    if (validHeight) {
+      setHeight(value);
+    }
+  };
+
   const guardarClick = () => {
     console.log("Este es mi estado local", nombre, apelPate);
   };
@@ -116,7 +126,6 @@ function App() {
                     </div>
                   </div>
                 </th>
-
                 <th className="mi_formulario_tabla_hurdle">
                   <div className="mi_formulario_input-icon">
                     <label className="mi_formulario_label">
@@ -135,7 +144,6 @@ function App() {
                     <ErrorEtiquetas nombre={apelPate} />
                   </div>
                 </th>
-
                 <th className="mi_formulario_tabla_hurdle">
                   <div className="mi_formulario_input-icon">
                     <label className="mi_formulario_label">
@@ -202,7 +210,6 @@ function App() {
                     )}
                   </div>
                 </th>
-
                 <th className="mi_formulario_tabla_hurdle">
                   <div className="mi_formulario_input-icon">
                     <label htmlFor="gender" className="mi_formulario_label">
@@ -244,10 +251,11 @@ function App() {
                     />
                   </div>
                 </th>
-
                 <th className="mi_formulario_tabla_hurdle">
                   <div>
-                    <label htmlFor="weight" className="mi_formulario_label">Peso (kg):</label>
+                    <label htmlFor="weight" className="mi_formulario_label">
+                      Peso (kg):
+                    </label>
                     <input
                       type="text"
                       id="weight"
@@ -260,15 +268,16 @@ function App() {
                     />
                   </div>
                 </th>
-
                 <th className="mi_formulario_tabla_hurdle">
-                <div>
-                    <label htmlFor="weight" className="mi_formulario_label">Peso (kg):</label>
+                  <div>
+                    <label htmlFor="height" className="mi_formulario_label">
+                      Altura (cm):
+                    </label>
                     <input
                       type="text"
-                      id="weight"
-                      value={weight}
-                      onChange={cambiarWeight}
+                      id="height"
+                      value={height}
+                      onChange={cambiarHeight}
                       placeholder="00.00"
                       pattern="\d{0,3}(\.\d{0,2})?"
                       inputMode="decimal"

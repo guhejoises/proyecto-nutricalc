@@ -13,6 +13,8 @@ function App() {
   const [weight, setWeight] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
   const [height, setHeight] = useState("");
+  const [circunferencia_brazo, setCircunferencia_brazo] = useState("");
+  const [pliegue_triceps, setPliegue_triceps] = useState("");
   const [error, setError] = useState("");
 
   let activar = 0;
@@ -93,6 +95,24 @@ function App() {
     }
   };
 
+  const cambiarCircunferencia_brazo = (event) => {
+    const value = event.target.value;
+    const validCircunferencia_brazo = /^\d{0,3}(\.\d{0,2})?$/.test(value);
+
+    if (validCircunferencia_brazo) {
+      setCircunferencia_brazo(value);
+    }
+  };
+
+  const cambiarPliegue_triceps = (event) => {
+    const value = event.target.value;
+    const validPliegue_triceps = /^\d{0,3}(\.\d{0,2})?$/.test(value);
+
+    if (validPliegue_triceps) {
+      setPliegue_triceps(value);
+    }
+  };
+
   const guardarClick = () => {
     console.log("Este es mi estado local", nombre, apelPate);
   };
@@ -163,7 +183,7 @@ function App() {
                   </div>
                 </th>
               </tr>
-              <tr>
+              <tr className="mi_formulario_tabla_row">
                 <th className="mi_formulario_tabla_hurdle">
                   <div className="mi_formulario_input-icon">
                     <label className="mi_formulario_label">
@@ -181,7 +201,7 @@ function App() {
                         maxLength={25}
                       ></input>
                       {error && (
-                        <label className="mi_formulario_error2">{error}</label>
+                        <label className="mi_formulario_error">{error}</label>
                       )}
                     </div>
                   </div>
@@ -231,7 +251,7 @@ function App() {
                   </div>
                 </th>
               </tr>
-              <tr>
+              <tr className="mi_formulario_tabla_row">
                 <th className="mi_formulario_tabla_hurdle">
                   <div>
                     <label
@@ -283,6 +303,62 @@ function App() {
                       inputMode="decimal"
                       className="mi_formulario_input"
                     />
+                  </div>
+                </th>
+              </tr>
+              <tr className="mi_formulario_tabla_row">
+                <th className="mi_formulario_tabla_hurdle">
+                  <div>
+                    <label htmlFor="height" className="mi_formulario_label">
+                      Circunferencia del brazo (cm):
+                    </label>
+                    <input
+                      type="text"
+                      id="circunferencia_brazo"
+                      value={circunferencia_brazo}
+                      onChange={cambiarCircunferencia_brazo}
+                      placeholder="00.00"
+                      pattern="\d{0,3}(\.\d{0,2})?"
+                      inputMode="decimal"
+                      className="mi_formulario_input"
+                    />
+                  </div>
+                </th>
+                <th className="mi_formulario_tabla_hurdle">
+                  <div>
+                    <label htmlFor="height" className="mi_formulario_label">
+                      Pliegue cutáneo del tríceps (cm):
+                    </label>
+                    <input
+                      type="text"
+                      id="pliegue_triceps"
+                      value={pliegue_triceps}
+                      onChange={cambiarPliegue_triceps}
+                      placeholder="00.00"
+                      pattern="\d{0,3}(\.\d{0,2})?"
+                      inputMode="decimal"
+                      className="mi_formulario_input"
+                    />
+                  </div>
+                </th>
+                <th className="mi_formulario_tabla_hurdle">
+                  <div className="mi_formulario_input-icon">
+                    <label htmlFor="gender" className="mi_formulario_label">
+                      Sexo:
+                    </label>
+                    <select
+                      id="genero"
+                      value={gender}
+                      onChange={cambiarGenero}
+                      className="mi_formulario_dropdown"
+                    >
+                      <option value="" disabled>
+                        Seleccione su género
+                      </option>
+                      <option value="bajo">Bajo</option>
+                      <option value="medio">Medio</option>
+                      <option value="alto">Alto</option>
+                    </select>
                   </div>
                 </th>
               </tr>

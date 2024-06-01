@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./AppSass.scss";
 import { MdDriveFileRenameOutline } from "react-icons/md";
 import ErrorEtiquetas from "./Componentes/ErrorEtiquetas";
+import axios from "axios";
 
 function App() {
+  const [data, setData] = useState({});
   const [nombre, setNombre] = useState("");
   const [apelPate, setApelPate] = useState("");
   const [apelMate, setApelMate] = useState("");
@@ -16,6 +18,20 @@ function App() {
   const [circunferencia_brazo, setCircunferencia_brazo] = useState("");
   const [pliegue_triceps, setPliegue_triceps] = useState("");
   const [error, setError] = useState("");
+
+  useEffect(()=>{
+    fetchData();
+  },[])
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/data')
+      const jsonData = await response.json()
+      setData(jsonData)
+    }catch(error){
+      console.log(error);
+    }
+  }
 
   let activar = 0;
   const today = new Date();

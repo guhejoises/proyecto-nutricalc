@@ -16,9 +16,29 @@ def receive_data():
     nombre = data.get("nombre")
     apelPate = data.get("apelPate")
     apelMate = data.get("apelMate")
+    correo = data.get("correo")
+    numero = data.get("numero")
+    gender = data.get("gender")
+    weight = data.get("weight")
+    dateOfBirth = data.get("dateOfBirth")
+    height = data.get("height")
+    circunferencia_brazo = data.get("circunferencia_brazo")
+    pliegue_triceps = data.get("pliegue_triceps")
+    actiFisica = data.get("actiFisica")
+    acidoUrico = data.get("acidoUrico")
+    albumina = data.get("albumina")
+    colesterol = data.get("colesterol")
+    globulina = data.get("globulina")
+    tension = data.get("tension")
+    hematocrito = data.get("hematocrito")
+    proteinas = data.get("proteinas")
+    triglicerido = data.get("triglicerido")
 
     # Inserta los datos en MongoDB
-    product = Product(nombre, apelPate, apelMate)
+    product = Product(nombre, apelPate, apelMate, correo, numero, gender, weight,
+      dateOfBirth, height, circunferencia_brazo, pliegue_triceps, actiFisica, acidoUrico,
+      albumina, colesterol, globulina, hematocrito, proteinas, tension, triglicerido)
+    
     result = products.insert_one(product.toDBCollection())
 
     # Verificar si la inserción fue exitosa

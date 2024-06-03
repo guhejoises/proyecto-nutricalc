@@ -17,6 +17,14 @@ function App() {
   const [circunferencia_brazo, setCircunferencia_brazo] = useState("");
   const [pliegue_triceps, setPliegue_triceps] = useState("");
   const [actiFisica, setActiFisica] = useState("");
+  const [acidoUrico, setAcidoUrico] = useState("");
+  const [albumina, setAlbumina] = useState("");
+  const [colesterol, setColesterol] = useState("");
+  const [globulina, setGlobulina] = useState("");
+  const [hematocrito, setHematocrito] = useState("");
+  const [proteinas, setProteinas] = useState("");
+  const [tension, setTension] = useState("");
+  const [triglicerido, setTriglicerido] = useState("");
   const [error, setError] = useState("");
 
   const enviarDatos = async (e) => {
@@ -32,6 +40,15 @@ function App() {
       height,
       circunferencia_brazo,
       pliegue_triceps,
+      actiFisica,
+      acidoUrico,
+      albumina,
+      colesterol,
+      globulina,
+      hematocrito,
+      proteinas,
+      tension,
+      triglicerido,
     };
 
     try {
@@ -150,9 +167,97 @@ function App() {
     setActiFisica(e.target.value);
   };
 
+  const cambiarAcidoUrico = (event) => {
+    const value = event.target.value;
+    const validAcidoUrico = /^\d{0,2}(\.\d{0,2})?$/.test(value);
+
+    if (validAcidoUrico) {
+      setAcidoUrico(value);
+    }
+  };
+
+  const cambiarAlbumina = (event) => {
+    const value = event.target.value;
+    const validAlbumina = /^\d{0,2}(\.\d{0,2})?$/.test(value);
+
+    if (validAlbumina) {
+      setAlbumina(value);
+    }
+  };
+
+  const cambiarColesterol = (event) => {
+    const value = event.target.value;
+    const validColesterol = /^\d{0,2}(\.\d{0,2})?$/.test(value);
+
+    if (validColesterol) {
+      setColesterol(value);
+    }
+  };
+
+  const cambiarGlobulina = (event) => {
+    const value = event.target.value;
+    const validGlobulina = /^\d{0,2}(\.\d{0,2})?$/.test(value);
+
+    if (validGlobulina) {
+      setGlobulina(value);
+    }
+  };
+
+  const cambiarHematocrito = (event) => {
+    const value = event.target.value;
+    const validHematocrito = /^\d{0,2}(\.\d{0,2})?$/.test(value);
+
+    if (validHematocrito) {
+      setHematocrito(value);
+    }
+  };
+
+  const cambiarProteinas = (event) => {
+    const value = event.target.value;
+    const validProteinas = /^\d{0,2}(\.\d{0,2})?$/.test(value);
+
+    if (validProteinas) {
+      setProteinas(value);
+    }
+  };
+
+  const cambiarTension = (event) => {
+    const value = event.target.value;
+    const validTension = /^\d{0,2}(\.\d{0,2})?$/.test(value);
+
+    if (validTension) {
+      setTension(value);
+    }
+  };
+
+  const cambiarTriglicerido = (event) => {
+    const value = event.target.value;
+    const validTriglicerido = /^\d{0,2}(\.\d{0,2})?$/.test(value);
+
+    if (validTriglicerido) {
+      setTriglicerido(value);
+    }
+  };
+
   const guardarClick = () => {
     console.log("Este es mi estado local", nombre, apelPate);
     enviarDatos();
+  };
+
+  const isFormValid = () => {
+    return (
+      nombre.length > 0 &&
+      apelPate.length > 0 &&
+      apelMate.length > 0 &&
+      correo.length > 0 &&
+      numero.length === 10 &&
+      gender.length > 0 &&
+      weight.length > 0 &&
+      dateOfBirth.length > 0 &&
+      height.length > 0 &&
+      actiFisica.length > 0 &&
+      error.length === 0
+    );
   };
 
   return (
@@ -291,7 +396,7 @@ function App() {
               </tr>
               <tr className="mi_formulario_tabla_row">
                 <th className="mi_formulario_tabla_hurdle">
-                  <div>
+                  <div className="mi_formulario_input-icon">
                     <label
                       htmlFor="dateOfBirth"
                       className="mi_formulario_label"
@@ -310,7 +415,7 @@ function App() {
                   </div>
                 </th>
                 <th className="mi_formulario_tabla_hurdle">
-                  <div>
+                  <div className="mi_formulario_input-icon">
                     <label htmlFor="weight" className="mi_formulario_label">
                       Peso (kg):
                     </label>
@@ -327,7 +432,7 @@ function App() {
                   </div>
                 </th>
                 <th className="mi_formulario_tabla_hurdle">
-                  <div>
+                  <div className="mi_formulario_input-icon">
                     <label htmlFor="height" className="mi_formulario_label">
                       Altura (cm):
                     </label>
@@ -346,7 +451,7 @@ function App() {
               </tr>
               <tr className="mi_formulario_tabla_row">
                 <th className="mi_formulario_tabla_hurdle">
-                  <div>
+                  <div className="mi_formulario_input-icon">
                     <label htmlFor="height" className="mi_formulario_label">
                       Circunferencia del brazo (cm):
                     </label>
@@ -363,7 +468,7 @@ function App() {
                   </div>
                 </th>
                 <th className="mi_formulario_tabla_hurdle">
-                  <div>
+                  <div className="mi_formulario_input-icon">
                     <label htmlFor="height" className="mi_formulario_label">
                       Pliegue cutáneo del tríceps (cm):
                     </label>
@@ -385,7 +490,7 @@ function App() {
                       Nivel de actividad física:
                     </label>
                     <select
-                      id="genero"
+                      id="actiFisica"
                       value={actiFisica}
                       onChange={cambiarActiFisica}
                       className="mi_formulario_dropdown"
@@ -400,20 +505,154 @@ function App() {
                   </div>
                 </th>
               </tr>
+              <tr className="mi_formulario_tabla_row">
+                <th className="mi_formulario_tabla_hurdle">
+                  <div className="mi_formulario_input-icon">
+                    <label htmlFor="height" className="mi_formulario_label">
+                      Ácido Úrico (mg/dL):
+                    </label>
+                    <input
+                      type="text"
+                      id="acidoUrico"
+                      value={acidoUrico}
+                      onChange={cambiarAcidoUrico}
+                      placeholder="00.00"
+                      pattern="\d{0,2}(\.\d{0,2})?"
+                      inputMode="decimal"
+                      className="mi_formulario_input"
+                    />
+                  </div>
+                </th>
+                <th className="mi_formulario_tabla_hurdle">
+                  <div className="mi_formulario_input-icon">
+                    <label htmlFor="height" className="mi_formulario_label">
+                      Albumina (g/dL):
+                    </label>
+                    <input
+                      type="text"
+                      id="albumina"
+                      value={albumina}
+                      onChange={cambiarAlbumina}
+                      placeholder="00.00"
+                      pattern="\d{0,2}(\.\d{0,2})?"
+                      inputMode="decimal"
+                      className="mi_formulario_input"
+                    />
+                  </div>
+                </th>
+                <th className="mi_formulario_tabla_hurdle">
+                  <div className="mi_formulario_input-icon">
+                    <label htmlFor="height" className="mi_formulario_label">
+                      Colesterol (mg/dL):
+                    </label>
+                    <input
+                      type="text"
+                      id="colesterol"
+                      value={colesterol}
+                      onChange={cambiarColesterol}
+                      placeholder="00.00"
+                      pattern="\d{0,2}(\.\d{0,2})?"
+                      inputMode="decimal"
+                      className="mi_formulario_input"
+                    />
+                  </div>
+                </th>
+              </tr>
+              <tr className="mi_formulario_tabla_row">
+                <th className="mi_formulario_tabla_hurdle">
+                  <div className="mi_formulario_input-icon">
+                    <label htmlFor="height" className="mi_formulario_label">
+                      Globulina (g/dL):
+                    </label>
+                    <input
+                      type="text"
+                      id="globulina"
+                      value={globulina}
+                      onChange={cambiarGlobulina}
+                      placeholder="00.00"
+                      pattern="\d{0,2}(\.\d{0,2})?"
+                      inputMode="decimal"
+                      className="mi_formulario_input"
+                    />
+                  </div>
+                </th>
+                <th className="mi_formulario_tabla_hurdle">
+                  <div className="mi_formulario_input-icon">
+                    <label htmlFor="height" className="mi_formulario_label">
+                      Hematocrito (%):
+                    </label>
+                    <input
+                      type="text"
+                      id="hematocrito"
+                      value={hematocrito}
+                      onChange={cambiarHematocrito}
+                      placeholder="00.00"
+                      pattern="\d{0,2}(\.\d{0,2})?"
+                      inputMode="decimal"
+                      className="mi_formulario_input"
+                    />
+                  </div>
+                </th>
+                <th className="mi_formulario_tabla_hurdle">
+                  <div className="mi_formulario_input-icon">
+                    <label htmlFor="height" className="mi_formulario_label">
+                      Proteínas Totales (g/dL):
+                    </label>
+                    <input
+                      type="text"
+                      id="proteinas"
+                      value={proteinas}
+                      onChange={cambiarProteinas}
+                      placeholder="00.00"
+                      pattern="\d{0,2}(\.\d{0,2})?"
+                      inputMode="decimal"
+                      className="mi_formulario_input"
+                    />
+                  </div>
+                </th>
+              </tr>
+              <tr className="mi_formulario_tabla_row">
+                <th className="mi_formulario_tabla_hurdle">
+                  <div className="mi_formulario_input-icon">
+                    <label htmlFor="height" className="mi_formulario_label">
+                      Tensión Diastólica (mmHg):
+                    </label>
+                    <input
+                      type="text"
+                      id="tension"
+                      value={tension}
+                      onChange={cambiarTension}
+                      placeholder="00.00"
+                      pattern="\d{0,2}(\.\d{0,2})?"
+                      inputMode="decimal"
+                      className="mi_formulario_input"
+                    />
+                  </div>
+                </th>
+                <th className="mi_formulario_tabla_hurdle">
+                  <div className="mi_formulario_input-icon">
+                    <label htmlFor="height" className="mi_formulario_label">
+                      Triglicéridos (mg/dL):
+                    </label>
+                    <input
+                      type="text"
+                      id="triglicerido"
+                      value={triglicerido}
+                      onChange={cambiarTriglicerido}
+                      placeholder="00.00"
+                      pattern="\d{0,2}(\.\d{0,2})?"
+                      inputMode="decimal"
+                      className="mi_formulario_input"
+                    />
+                  </div>
+                </th>
+              </tr>
             </table>
           </div>
         </div>
         <div className="mi_formulario_espacio1">
           <button
-            disabled={
-              (apelPate.length <= 0 ||
-                apelMate.length <= 0 ||
-                nombre.length <= 0 ||
-                correo.length <= 0 ||
-                numero.length !== 10 ||
-                error.length > 0) &&
-              true
-            }
+            disabled={!isFormValid()}
             className="mi_formulario_button"
             onClick={guardarClick}
           >

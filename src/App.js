@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./AppSass.scss";
 import { MdDriveFileRenameOutline } from "react-icons/md";
 import ErrorEtiquetas from "./Componentes/ErrorEtiquetas";
 import axios from "axios";
 
 function App() {
-  const [data, setData] = useState({});
   const [nombre, setNombre] = useState("");
   const [apelPate, setApelPate] = useState("");
   const [apelMate, setApelMate] = useState("");
@@ -17,21 +16,39 @@ function App() {
   const [height, setHeight] = useState("");
   const [circunferencia_brazo, setCircunferencia_brazo] = useState("");
   const [pliegue_triceps, setPliegue_triceps] = useState("");
+  const [actiFisica, setActiFisica] = useState("");
   const [error, setError] = useState("");
 
-  useEffect(()=>{
-    fetchData();
-  },[])
+  const enviarDatos = async (e) => {
+    const payload = {
+      nombre,
+      apelPate,
+      apelMate,
+      correo,
+      numero,
+      gender,
+      weight,
+      dateOfBirth,
+      height,
+      circunferencia_brazo,
+      pliegue_triceps,
+    };
 
-  const fetchData = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/data')
-      const jsonData = await response.json()
-      setData(jsonData)
-    }catch(error){
+      const response = await axios.post(
+        "http://localhost:5000/api/guardar_datos",
+        payload,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response.data);
+    } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   let activar = 0;
   const today = new Date();
@@ -129,8 +146,13 @@ function App() {
     }
   };
 
+  const cambiarActiFisica = (e) => {
+    setActiFisica(e.target.value);
+  };
+
   const guardarClick = () => {
     console.log("Este es mi estado local", nombre, apelPate);
+    enviarDatos();
   };
 
   return (
@@ -258,7 +280,7 @@ function App() {
                       className="mi_formulario_dropdown"
                     >
                       <option value="" disabled>
-                        Seleccione su género
+                        Seleccione el género
                       </option>
                       <option value="hombre">Hombre</option>
                       <option value="mujer">Mujer</option>
@@ -360,16 +382,16 @@ function App() {
                 <th className="mi_formulario_tabla_hurdle">
                   <div className="mi_formulario_input-icon">
                     <label htmlFor="gender" className="mi_formulario_label">
-                      Sexo:
+                      Nivel de actividad física:
                     </label>
                     <select
                       id="genero"
-                      value={gender}
-                      onChange={cambiarGenero}
+                      value={actiFisica}
+                      onChange={cambiarActiFisica}
                       className="mi_formulario_dropdown"
                     >
                       <option value="" disabled>
-                        Seleccione su género
+                        Actividad física
                       </option>
                       <option value="bajo">Bajo</option>
                       <option value="medio">Medio</option>

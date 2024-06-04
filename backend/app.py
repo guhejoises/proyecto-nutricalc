@@ -8,6 +8,7 @@ db = dbase.dbConnectionPacientes()
 app = Flask(__name__)
 CORS(app)  # Habilitar CORS para permitir solicitudes desde React
 
+#Guardar elemento
 @app.route('/api/guardar_datos', methods=['POST'])
 def receive_data():
     data = request.json
@@ -53,7 +54,7 @@ def receive_data():
     else:
         return jsonify({"message": "Error al insertar los datos"}), 500
 
-
+#Eliminar elemento
 @app.route('/delete/<string:correo>', methods=['DELETE'])
 def delete(correo):
     paciente = db['pacientes']
@@ -63,7 +64,8 @@ def delete(correo):
         return jsonify({"message": "Paciente eliminado con éxito"}), 200
     else:
         return jsonify({"message": "Error al eliminar el paciente"}), 404
-    
+
+#Editar elemento
 @app.route('/edit/<string:correo_edit>', methods=['POST'])
 def edit(correo_edit):
     data = request.json

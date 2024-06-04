@@ -74,7 +74,6 @@ def edit(correo_edit):
         "nombre": data.get("nombre"),
         "apelPate": data.get("apelPate"),
         "apelMate": data.get("apelMate"),
-        "correo": data.get("correo"),
         "numero": data.get("numero"),
         "gender": data.get("gender"),
         "weight": data.get("weight"),
@@ -103,6 +102,39 @@ def edit(correo_edit):
         return jsonify({"message": "Datos actualizados con éxito"}), 200
     else:
         return jsonify({"message": "Error al actualizar los datos o no se encontraron cambios"}), 404
+
+#Obtener elemento
+@app.route('/obtener/<string:correo_obtener>', methods=['GET'])
+def obtener(correo_obtener):
+    products = db['pacientes']
+    
+    # Buscar el paciente por correo
+    paciente = products.find_one({"correo": correo_obtener})
+    
+    if paciente:
+        # Convertir ObjectId a string
+        paciente['_id'] = str(paciente['_id'])
+        return jsonify(paciente), 200
+    else:
+        return jsonify({"message": "Paciente no encontrado"}), 404
+    
+# Obtener elementos
+@app.route('/obtener_elementos', methods=['GET'])
+def obtener_elementos():
+    products = db['pacientes']
+    
+    # Obtener todos los documentos de la colección
+    pacientes = products.find()
+    
+    # Convertir los documentos a una lista de diccionarios
+    pacientes_list = []
+    for paciente in pacientes:
+        paciente['_id'] = str(paciente['_id'])  # Convertir ObjectId a string
+        pacientes_list.append(paciente)
+    
+    return jsonify(pacientes_list), 200
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

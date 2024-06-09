@@ -8,7 +8,6 @@ from pymongo.errors import ConnectionFailure
 app = Flask(__name__)
 CORS(app)  # Habilitar CORS para permitir solicitudes desde React
 
-#prueba
 # Conexión a la base de datos MongoDB
 MONGO_URI = 'mongodb+srv://jimimorison03:BjQDS0zuK3v9tKzA@cluster0.hcqwrty.mongodb.net/?retryWrites=true&w=majority'
 ca = certifi.where()
